@@ -1,0 +1,26 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Each doctor's own data - profile, patients, visits, templates.
+    // request.auth.uid must match the doctorId in the path, so doctor A
+    // can never read or write doctor B's documents, enforced by Firestore
+    // itself, not just by app code.
+    match /doctors/{doctorId} {
+      allow read, write: if request.auth != null && request.auth.uid == doctorId;
+
+      match /{subcollection=**} {
+        allow read, write: if request.auth != null && request.auth.uid == doctorId;
+      }
+    }
+
+    // Shared drug master list - every logged-in doctor can read it.
+    // Writes are restricted to the seed script (Firebase Admin SDK bypasses
+    // rules entirely), so no client write rule is granted here.
+    match /drugs/{drugId} {
+      allow read: if request.auth != null;
+      allow write: if false;
+    }
+  }
+}

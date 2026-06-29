@@ -1,0 +1,107 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+:root {
+  /* Paper & surfaces - warm, calm, not stark white */
+  --paper: #f5f6f3;
+  --surface: #ffffff;
+  --surface-raised: #ffffff;
+
+  /* Ink - warm charcoal, never pure black */
+  --ink: #1b231f;
+  --ink-muted: #5c6760;
+  --ink-faint: #8b948d;
+
+  --border: #e2e4de;
+  --border-strong: #cdd1c8;
+
+  /* Petrol - the brand's working color. Deep teal, not generic blue or mint-health-app green */
+  --petrol: #1f6f5c;
+  --petrol-dark: #154a3d;
+  --petrol-light: #e7f0ec;
+
+  /* Gold - the signature accent, used sparingly. A nod to the foil on old prescription pads */
+  --gold: #b68a35;
+  --gold-light: #f3ead8;
+
+  /* Functional - clinical safety colors, kept unambiguous */
+  --danger: #b3261e;
+  --danger-light: #fbe9e7;
+  --success: #1f6f5c;
+  --success-light: #e7f0ec;
+
+  --radius: 0.625rem;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-faint: var(--ink-faint);
+
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+
+  --color-petrol: var(--petrol);
+  --color-petrol-dark: var(--petrol-dark);
+  --color-petrol-light: var(--petrol-light);
+
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+
+  --color-danger: var(--danger);
+  --color-danger-light: var(--danger-light);
+  --color-success: var(--success);
+  --color-success-light: var(--success-light);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-serif: var(--font-source-serif);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+* {
+  border-color: var(--border);
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+}
+
+:focus-visible {
+  outline: 2px solid var(--petrol);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .print-area, .print-area * {
+    visibility: visible;
+  }
+  .print-area {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    box-shadow: none !important;
+    border: none !important;
+  }
+}
